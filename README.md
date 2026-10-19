@@ -32,6 +32,45 @@
 
 ---
 
+## ✅ Assignment Requirements Coverage
+
+Every item from the Phase 2 specification is implemented and verifiable.
+
+### Screen 1 — Today's Habits
+| Requirement | Status |
+|---|---|
+| List of today's habits | ✅ Done |
+| Habit name, done/undone status toggle (tappable) | ✅ Done |
+| Points value displayed per habit | ✅ Done |
+| Progress header — total points earned + completion count | ✅ Done |
+| Navigation to Add Habit screen | ✅ Done (FAB button) |
+
+### Screen 2 — Add Habit
+| Requirement | Status |
+|---|---|
+| Form with name, description, and point value | ✅ Done |
+| Data saved to Firebase Firestore (no mock/hardcoded data) | ✅ Done |
+
+### Screen 3 — Habit Detail
+| Requirement | Status |
+|---|---|
+| Shows habit name, description, and point value | ✅ Done |
+| 7-day streak visualization | ✅ Done |
+| Toggle today as done / undone | ✅ Done |
+
+### Required Packages
+| Package | Status |
+|---|---|
+| `flutter_bloc` | ✅ |
+| `freezed` | ✅ |
+| `dartz` | ✅ |
+| `get_it` | ✅ |
+| `go_router` | ✅ |
+| `cloud_firestore` | ✅ |
+| Clean Architecture (domain / data / presentation) | ✅ |
+
+---
+
 ## ✨ Features
 
 | Screen | Features |
