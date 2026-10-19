@@ -435,43 +435,53 @@ class _ProgressCard extends StatelessWidget {
         ? 0.0
         : summary.completedCount / summary.totalCount;
     final pct = (progress * 100).toInt();
-    final color = progress == 1.0 ? AppColors.done : AppColors.primary;
+    final isAllDone = progress == 1.0;
+
+    // Gradient colours: green when done, orange otherwise
+    final gradColors = isAllDone
+        ? [const Color(0xFF43A047), const Color(0xFF2E7D32)]
+        : [AppColors.primary, const Color(0xFFFF7043)];
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(18),
+        gradient: LinearGradient(
+          colors: gradColors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
+            color: gradColors.first.withValues(alpha: 0.35),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Row(
         children: [
-          // ── Circular progress ──────────────────────────────────────────
+          // ── Circular progress (white arc on gradient bg) ───────────────
           SizedBox(
-            width: 80,
-            height: 80,
+            width: 100,
+            height: 100,
             child: Stack(
               fit: StackFit.expand,
               children: [
                 CircularProgressIndicator(
                   value: progress,
-                  strokeWidth: 7,
-                  backgroundColor: AppColors.border,
-                  valueColor: AlwaysStoppedAnimation(color),
+                  strokeWidth: 9,
+                  backgroundColor: Colors.white.withValues(alpha: 0.3),
+                  valueColor:
+                      const AlwaysStoppedAnimation(Colors.white),
                   strokeCap: StrokeCap.round,
                 ),
                 Center(
                   child: Text(
                     '$pct%',
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 18,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
                       fontWeight: FontWeight.w800,
                       letterSpacing: -0.5,
                     ),
@@ -480,53 +490,45 @@ class _ProgressCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 18),
-          // ── Stats ──────────────────────────────────────────────────────
+          const SizedBox(width: 20),
+          // ── Text block ─────────────────────────────────────────────────
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Completion Rate',
+                Text(
+                  '${summary.completedCount} of ${summary.totalCount} habits',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    height: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'completed today!',
                   style: TextStyle(
-                    color: AppColors.t2,
-                    fontSize: 12,
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 15,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    _StatBadge(
-                      label: 'Done',
-                      value: '${summary.completedCount}',
-                      color: AppColors.done,
-                      bg: AppColors.successLight,
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.22),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    '⭐ ${summary.earnedPoints} pts earned',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
                     ),
-                    const SizedBox(width: 8),
-                    _StatBadge(
-                      label: 'Total',
-                      value: '${summary.totalCount}',
-                      color: AppColors.primary,
-                      bg: AppColors.primaryPeach,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Text(
-                      '${summary.completedCount} of ${summary.totalCount} completed',
-                      style: const TextStyle(color: AppColors.t2, fontSize: 12),
-                    ),
-                  ],
-                ),
-                Text(
-                  '${summary.earnedPoints} pts earned',
-                  style: const TextStyle(
-                    color: AppColors.amber,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
