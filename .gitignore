@@ -58,3 +58,4 @@ ios/.symlinks/
 # ─── macOS ────────────────────────────────────────────────────────────────────
 macos/Pods/
 macos/.symlinks/
+WALKTHROUGH.md
