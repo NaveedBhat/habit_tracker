@@ -293,7 +293,7 @@ class _Content extends StatelessWidget {
                   opacity: 0.10,
                   child: Image.asset(
                     'assets/waves.png',
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
