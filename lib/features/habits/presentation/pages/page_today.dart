@@ -11,6 +11,7 @@ import '../../domain/entities/entity_habit_status.dart';
 import '../../domain/entities/entity_today_summary.dart';
 import '../cubit/cubit_today_habits.dart';
 import '../cubit/state_today_habits.dart';
+import 'page_notifications.dart';
 
 class PageToday extends StatelessWidget {
   const PageToday({super.key});
@@ -119,25 +120,32 @@ class PageToday extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    // Search icon
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.surface,
-                                        borderRadius: BorderRadius.circular(12),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withValues(alpha: 0.06),
-                                            blurRadius: 8,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
+                                    // Notification bell
+                                    GestureDetector(
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => const PageNotifications(),
+                                        ),
                                       ),
-                                      child: const Icon(
-                                        Icons.notifications_none_rounded,
-                                        color: AppColors.t2,
-                                        size: 20,
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.surface,
+                                          borderRadius: BorderRadius.circular(12),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withValues(alpha: 0.06),
+                                              blurRadius: 8,
+                                              offset: const Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: const Icon(
+                                          Icons.notifications_none_rounded,
+                                          color: AppColors.t2,
+                                          size: 20,
+                                        ),
                                       ),
                                     ),
                                   ],
