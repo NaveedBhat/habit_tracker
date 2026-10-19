@@ -1,0 +1,60 @@
+# ─── Miscellaneous ────────────────────────────────────────────────────────────
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# ─── IntelliJ / Android Studio ───────────────────────────────────────────────
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# ─── VS Code (kept in source control by default — comment out if unwanted) ────
+#.vscode/
+
+# ─── Flutter / Dart / Pub ────────────────────────────────────────────────────
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# ─── Build artefacts ─────────────────────────────────────────────────────────
+app.*.symbols
+app.*.map.json
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ─── Firebase / Google Services (SECRETS — never commit these) ───────────────
+# These contain API keys and project credentials.
+google-services.json
+GoogleService-Info.plist
+
+# ─── Flutter log files ────────────────────────────────────────────────────────
+flutter_*.log
+
+# ─── Generated Gradle files ──────────────────────────────────────────────────
+android/.gradle/
+android/local.properties
+
+# ─── iOS CocoaPods ───────────────────────────────────────────────────────────
+ios/Pods/
+ios/.symlinks/
+
+# ─── macOS ────────────────────────────────────────────────────────────────────
+macos/Pods/
+macos/.symlinks/
