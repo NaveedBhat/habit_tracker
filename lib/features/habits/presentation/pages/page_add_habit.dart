@@ -49,16 +49,61 @@ class _PageAddHabitState extends State<PageAddHabit> {
         );
   }
 
+  // ── Professional toast helpers ─────────────────────────────────────────────
+
+  void _showSuccessToast(BuildContext context) {
+    _showToast(
+      context,
+      message: 'Habit added successfully! 🎉',
+      icon: Icons.check_circle_rounded,
+      bgColor: const Color(0xFF1E6B45),
+      iconColor: const Color(0xFF4ADE80),
+    );
+  }
+
+  void _showErrorToast(BuildContext context, String message) {
+    _showToast(
+      context,
+      message: message,
+      icon: Icons.error_rounded,
+      bgColor: const Color(0xFF7F1D1D),
+      iconColor: const Color(0xFFF87171),
+    );
+  }
+
+  void _showToast(
+    BuildContext context, {
+    required String message,
+    required IconData icon,
+    required Color bgColor,
+    required Color iconColor,
+  }) {
+    final overlay = Overlay.of(context);
+    late OverlayEntry entry;
+
+    entry = OverlayEntry(
+      builder: (_) => _ToastWidget(
+        message: message,
+        icon: icon,
+        bgColor: bgColor,
+        iconColor: iconColor,
+        onDismiss: () => entry.remove(),
+      ),
+    );
+
+    overlay.insert(entry);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CubitAddHabit, StateAddHabit>(
       listener: (context, state) {
         if (state.status == ViewStatus.success) {
           context.pop();
+          // Show professional toast on the parent screen
+          _showSuccessToast(context);
         } else if (state.status == ViewStatus.error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage ?? 'Failed to save')),
-          );
+          _showErrorToast(context, state.errorMessage ?? 'Failed to save');
         }
       },
       builder: (context, state) {
@@ -510,6 +555,129 @@ class _FieldLabel extends StatelessWidget {
         color: AppColors.t1,
         fontSize: 14,
         fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+}
+
+// ── Premium Toast Widget ───────────────────────────────────────────────────────
+
+class _ToastWidget extends StatefulWidget {
+  const _ToastWidget({
+    required this.message,
+    required this.icon,
+    required this.bgColor,
+    required this.iconColor,
+    required this.onDismiss,
+  });
+
+  final String message;
+  final IconData icon;
+  final Color bgColor;
+  final Color iconColor;
+  final VoidCallback onDismiss;
+
+  @override
+  State<_ToastWidget> createState() => _ToastWidgetState();
+}
+
+class _ToastWidgetState extends State<_ToastWidget>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _slide;
+  late final Animation<double> _fade;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 380),
+    );
+    _slide = Tween<double>(begin: 80, end: 0).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic),
+    );
+    _fade = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
+
+    _ctrl.forward();
+
+    // Auto dismiss after 2.5 s
+    Future.delayed(const Duration(milliseconds: 2500), _dismiss);
+  }
+
+  void _dismiss() async {
+    if (!mounted) return;
+    await _ctrl.reverse();
+    widget.onDismiss();
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: MediaQuery.of(context).padding.bottom + 24,
+      left: 20,
+      right: 20,
+      child: AnimatedBuilder(
+        animation: _ctrl,
+        builder: (_, child) => Transform.translate(
+          offset: Offset(0, _slide.value),
+          child: FadeTransition(opacity: _fade, child: child),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+            decoration: BoxDecoration(
+              color: widget.bgColor,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.25),
+                  blurRadius: 20,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 38,
+                  height: 38,
+                  decoration: BoxDecoration(
+                    color: widget.iconColor.withValues(alpha: 0.15),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(widget.icon,
+                      color: widget.iconColor, size: 20),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    widget.message,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: _dismiss,
+                  child: Icon(Icons.close_rounded,
+                      color: Colors.white.withValues(alpha: 0.5), size: 18),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
