@@ -212,34 +212,6 @@ dart analyze lib/
 - ✅ Zero deprecated API usage
 - ✅ Zero dead code
 
----
-
-## AI-Assisted Development
-
-This project was built using **[Antigravity by Google DeepMind](https://antigravity.dev)** as the AI pair-programming tool.
-
-### Example Prompts Used
-
-> *"Build a Flutter habit tracker with clean architecture — domain/data/presentation layers, flutter_bloc Cubits, freezed entities, dartz Either, get_it DI, go_router, Firestore backend. Zero mock data."*
-
-> *"Add swipe-left to delete using Dismissible with optimistic removal, red delete background, and Firestore batch delete for habit + all completion records."*
-
-> *"Add a time-based greeting icon that changes automatically — morning sun, afternoon sun, evening sunset, night moon — using the device clock."*
-
-### Where I Guided the AI
-
-The AI initially placed `_db.settings = const Settings(persistenceEnabled: true)` inside the `HabitRemoteDataSource` constructor. This caused a fatal `FirebaseException: Firestore settings cannot be changed` crash on every hot restart. I identified the root cause and directed the AI to move the settings call to `main.dart`, immediately after `Firebase.initializeApp()` and before any other Firestore operation.
-
-### Architecture Verification
-
-To verify the domain layer purity (a core Clean Architecture requirement), I ran:
-```bash
-grep -rn "import 'package:cloud_firestore" lib/features/habits/domain/
-grep -rn "import 'package:flutter"          lib/features/habits/domain/
-```
-Both returned **zero results** — confirming the domain layer is pure Dart with no framework dependencies.
-
----
 
 ## Project Highlights
 
