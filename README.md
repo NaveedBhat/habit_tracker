@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/images/blob.png" width="80" alt="Habit Tracker Logo" />
+<img src="assets/daily-tracker.png" width="720" alt="Daily Habit Tracker App Preview" />
 
 # Daily Habit Tracker
 
