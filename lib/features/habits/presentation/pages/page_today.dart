@@ -83,78 +83,76 @@ class PageToday extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     // Time-of-day avatar
-                                    Builder(builder: (_) {
-                                      final hour = DateTime.now().hour;
-                                      final IconData icon;
-                                      final Color bgColor;
-                                      final Color iconColor;
-                                      final String greeting;
+                                    Expanded(
+                                      child: Builder(builder: (_) {
+                                        final hour = DateTime.now().hour;
+                                        final IconData icon;
+                                        final Color bgColor;
+                                        final Color iconColor;
+                                        final String greeting;
 
-                                      if (hour >= 5 && hour < 12) {
-                                        // Morning
-                                        icon = Icons.wb_sunny_rounded;
-                                        bgColor = const Color(0xFFFFF8E1);
-                                        iconColor = const Color(0xFFFFA000);
-                                        greeting = 'Good Morning! ☀️';
-                                      } else if (hour >= 12 && hour < 17) {
-                                        // Afternoon
-                                        icon = Icons.wb_sunny_rounded;
-                                        bgColor = const Color(0xFFFFF3E0);
-                                        iconColor = const Color(0xFFFF6F00);
-                                        greeting = 'Good Afternoon! 🌤️';
-                                      } else if (hour >= 17 && hour < 20) {
-                                        // Evening
-                                        icon = Icons.wb_twilight_rounded;
-                                        bgColor = const Color(0xFFFFE0B2);
-                                        iconColor = const Color(0xFFE64A19);
-                                        greeting = 'Good Evening! 🌅';
-                                      } else {
-                                        // Night
-                                        icon = Icons.nights_stay_rounded;
-                                        bgColor = const Color(0xFFEDE7F6);
-                                        iconColor = const Color(0xFF512DA8);
-                                        greeting = 'Good Night! 🌙';
-                                      }
+                                        if (hour >= 5 && hour < 12) {
+                                          icon = Icons.wb_sunny_rounded;
+                                          bgColor = const Color(0xFFFFF8E1);
+                                          iconColor = const Color(0xFFFFA000);
+                                          greeting = 'Good Morning! ☀️';
+                                        } else if (hour >= 12 && hour < 17) {
+                                          icon = Icons.wb_sunny_rounded;
+                                          bgColor = const Color(0xFFFFF3E0);
+                                          iconColor = const Color(0xFFFF6F00);
+                                          greeting = 'Good Afternoon! 🌤️';
+                                        } else if (hour >= 17 && hour < 20) {
+                                          icon = Icons.wb_twilight_rounded;
+                                          bgColor = const Color(0xFFFFE0B2);
+                                          iconColor = const Color(0xFFE64A19);
+                                          greeting = 'Good Evening! 🌅';
+                                        } else {
+                                          icon = Icons.nights_stay_rounded;
+                                          bgColor = const Color(0xFFEDE7F6);
+                                          iconColor = const Color(0xFF512DA8);
+                                          greeting = 'Good Night! 🌙';
+                                        }
 
-                                      return Row(
-                                        children: [
-                                          Container(
-                                            width: 46,
-                                            height: 46,
-                                            decoration: BoxDecoration(
-                                              color: bgColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(14),
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              width: 46,
+                                              height: 46,
+                                              decoration: BoxDecoration(
+                                                color: bgColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                              ),
+                                              child: Icon(icon,
+                                                  color: iconColor, size: 24),
                                             ),
-                                            child: Icon(icon,
-                                                color: iconColor, size: 24),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                greeting,
-                                                style: const TextStyle(
-                                                  color: AppColors.t2,
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w400,
+                                            const SizedBox(width: 12),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  greeting,
+                                                  style: const TextStyle(
+                                                    color: AppColors.t2,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                _formatDate(DateTime.now()),
-                                                style: const TextStyle(
-                                                  color: AppColors.t1,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w700,
+                                                Text(
+                                                  _formatDate(DateTime.now()),
+                                                  style: const TextStyle(
+                                                    color: AppColors.t1,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      );
-                                    }),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      }),
+                                    ),
                                     // Notification bell
                                     GestureDetector(
                                       onTap: () => Navigator.of(context).push(
