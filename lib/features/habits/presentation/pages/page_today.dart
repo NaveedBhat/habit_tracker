@@ -334,90 +334,105 @@ class _DailyBanner extends StatelessWidget {
     final isAllDone =
         summary.totalCount > 0 && summary.completedCount == summary.totalCount;
 
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: isAllDone
-              ? [const Color(0xFF4CAF50), const Color(0xFF2E7D32)]
-              : [AppColors.primary, const Color(0xFFFF8C5A)],
+    // Light card colours — cream when pending, mint when done
+    final bgStart =
+        isAllDone ? const Color(0xFFE8F5E9) : const Color(0xFFFFF3EF);
+    final bgEnd =
+        isAllDone ? const Color(0xFFC8E6C9) : const Color(0xFFFFE5DC);
+    final titleColor = isAllDone ? const Color(0xFF1B5E20) : AppColors.t1;
+    final subColor = isAllDone ? const Color(0xFF388E3C) : AppColors.t2;
+    final badgeBg =
+        isAllDone ? const Color(0xFFA5D6A7) : AppColors.primaryPeach;
+    final badgeColor = isAllDone ? const Color(0xFF1B5E20) : AppColors.primary;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(22),
+      child: Container(
+        height: 130,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [bgStart, bgEnd],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withValues(alpha: 0.15),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(22),
-        boxShadow: [
-          BoxShadow(
-            color: (isAllDone ? AppColors.done : AppColors.primary)
-                .withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  isAllDone ? '🎉 All done!' : 'Daily Challenge',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    height: 1.2,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  isAllDone
-                      ? 'You crushed all habits today!'
-                      : '${summary.totalCount - summary.completedCount} habits left to complete',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.85),
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 14),
-                // Points earned display
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.22),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    '⭐ ${summary.earnedPoints} / ${summary.totalPoints} pts',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            // ── Left text content ────────────────────────────────────────
+            Positioned.fill(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 18, 150, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          isAllDone ? '🎉 All done!' : 'Daily Challenge',
+                          style: TextStyle(
+                            color: titleColor,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            height: 1.15,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          isAllDone
+                              ? 'You crushed all habits today!'
+                              : '${summary.totalCount - summary.completedCount} habit${(summary.totalCount - summary.completedCount) == 1 ? '' : 's'} left to complete',
+                          style: TextStyle(
+                            color: subColor,
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                    // Points badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 11, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: badgeBg,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        '⭐ ${summary.earnedPoints} / ${summary.totalPoints} pts',
+                        style: TextStyle(
+                          color: badgeColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          // Decorative icon
-          Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.18),
-              borderRadius: BorderRadius.circular(18),
+            // ── Alarm clock image — bottom-right corner ──────────────────
+            Positioned(
+              right: -10,
+              bottom: -8,
+              child: Image.asset(
+                'assets/alam.webp',
+                width: 145,
+                height: 145,
+                fit: BoxFit.contain,
+              ),
             ),
-            child: Icon(
-              isAllDone
-                  ? Icons.emoji_events_rounded
-                  : Icons.local_fire_department_rounded,
-              color: Colors.white,
-              size: 36,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
