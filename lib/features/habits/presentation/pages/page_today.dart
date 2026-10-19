@@ -103,9 +103,9 @@ class PageToday extends StatelessWidget {
                                           greeting = 'Good Afternoon! 🌤️';
                                         } else if (hour >= 17 && hour < 20) {
                                           icon = Icons.wb_twilight_rounded;
-                                          bgColor = const Color(0xFFFFE0B2);
+                                          bgColor = const Color(0xFFFFF3E0);
                                           iconColor = const Color(0xFFE64A19);
-                                          greeting = 'Good Evening! 🌅';
+                                          greeting = 'Good Evening!';
                                         } else {
                                           icon = Icons.nights_stay_rounded;
                                           bgColor = const Color(0xFFEDE7F6);
