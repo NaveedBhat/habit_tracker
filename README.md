@@ -13,7 +13,6 @@
 ![Language](https://img.shields.io/badge/Language-Dart%203.6-0553B1?style=flat-square&logo=dart)
 ![Firebase](https://img.shields.io/badge/Backend-Firebase%20Firestore-FF6F00?style=flat-square&logo=firebase)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-purple?style=flat-square)
-![AI Tool](https://img.shields.io/badge/Built%20with-Antigravity%20AI-4285F4?style=flat-square&logo=google)
 ![Author](https://img.shields.io/badge/Author-Naveed%20Bhat-orange?style=flat-square)
 
 ![topic](https://img.shields.io/badge/topic-Flutter-02569B?style=flat-square)
