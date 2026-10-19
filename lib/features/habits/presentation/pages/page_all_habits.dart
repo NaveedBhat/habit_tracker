@@ -351,13 +351,13 @@ class _HabitListTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Icon box — shows icon if set, else first letter
+              // Icon box
               Container(
-                width: 50,
-                height: 50,
+                width: 46,
+                height: 46,
                 decoration: BoxDecoration(
                   color: bgColor,
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: habit.iconName.isEmpty
                     ? Center(
@@ -367,15 +367,16 @@ class _HabitListTile extends StatelessWidget {
                               : '?',
                           style: TextStyle(
                             color: accentColor,
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                       )
                     : Icon(iconFromName(habit.iconName),
-                        color: accentColor, size: 24),
+                        color: accentColor, size: 22),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 12),
+              // Name + description
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -384,7 +385,7 @@ class _HabitListTile extends StatelessWidget {
                       habit.name,
                       style: const TextStyle(
                         color: AppColors.t1,
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -399,29 +400,49 @@ class _HabitListTile extends StatelessWidget {
                               color: AppColors.t2, fontSize: 12),
                         ),
                       ),
-                    const SizedBox(height: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryPeach,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        '⭐ ${habit.points} pts',
-                        style: const TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
-              // Swipe hint arrow
-              const Icon(Icons.chevron_right_rounded,
-                  color: AppColors.t3, size: 20),
+              const SizedBox(width: 10),
+              // Points + time column (right side)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 7, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryPeach,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      '⭐ ${habit.points} pts',
+                      style: const TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.access_time_rounded,
+                          size: 11, color: AppColors.t2),
+                      const SizedBox(width: 3),
+                      Text(
+                        '${habit.durationMinutes} min',
+                        style: const TextStyle(
+                          color: AppColors.t2,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
         ),
