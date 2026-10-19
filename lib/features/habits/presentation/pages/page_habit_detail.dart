@@ -264,7 +264,9 @@ class _Content extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       children: [
         // ── Habit hero card ─────────────────────────────────────────────
-        Container(
+        ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: Container(
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -274,7 +276,6 @@ class _Content extends StatelessWidget {
                   ? [AppColors.done, const Color(0xFF2E7D32)]
                   : [AppColors.primary, const Color(0xFFFF8C5A)],
             ),
-            borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
                 color: (done ? AppColors.done : AppColors.primary)
@@ -284,7 +285,20 @@ class _Content extends StatelessWidget {
               ),
             ],
           ),
-          child: Column(
+          child: Stack(
+            children: [
+              // ── Waves texture ──────────────────────────────────────────
+              Positioned.fill(
+                child: Opacity(
+                  opacity: 0.10,
+                  child: Image.asset(
+                    'assets/waves.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              // ── Content ────────────────────────────────────────────────
+              Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Icon + Name row
@@ -421,8 +435,11 @@ class _Content extends StatelessWidget {
                   ),
                 ],
               ),
+                ],
+              ),
             ],
           ),
+        ),
         ),
         const SizedBox(height: 24),
 
