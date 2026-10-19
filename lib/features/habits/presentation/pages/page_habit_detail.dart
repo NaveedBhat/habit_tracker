@@ -264,9 +264,7 @@ class _Content extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       children: [
         // ── Habit hero card ─────────────────────────────────────────────
-        ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: Container(
+        Container(
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -275,6 +273,12 @@ class _Content extends StatelessWidget {
               colors: done
                   ? [AppColors.done, const Color(0xFF2E7D32)]
                   : [AppColors.primary, const Color(0xFFFF8C5A)],
+            ),
+            borderRadius: BorderRadius.circular(24),
+            image: DecorationImage(
+              image: const AssetImage('assets/waves.png'),
+              fit: BoxFit.cover,
+              opacity: 0.12,
             ),
             boxShadow: [
               BoxShadow(
@@ -285,22 +289,7 @@ class _Content extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
-            children: [
-              // ── Waves texture ──────────────────────────────────────────
-              Positioned.fill(
-                child: Opacity(
-                  opacity: 0.10,
-                  child: Image.asset(
-                    'assets/waves.png',
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.bottomCenter,
-                    width: double.infinity,
-                  ),
-                ),
-              ),
-              // ── Content ────────────────────────────────────────────────
-              Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Icon + Name row
@@ -437,11 +426,8 @@ class _Content extends StatelessWidget {
                   ),
                 ],
               ),
-                ],
-              ),
             ],
           ),
-        ),
         ),
         const SizedBox(height: 24),
 
