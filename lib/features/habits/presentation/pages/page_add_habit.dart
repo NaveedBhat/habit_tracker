@@ -114,7 +114,7 @@ class _PageAddHabitState extends State<PageAddHabit> {
           body: Stack(
             children: [
               // Decorative top-right blob
-              Positioned(
+              const Positioned(
                 top: -60,
                 right: -50,
                 child: BlobDecoration(size: 260, color: AppColors.lavender),

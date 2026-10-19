@@ -102,18 +102,18 @@ class NotificationService {
       '🌟 Habit Reminder',
       "Don't forget to complete today's habits and earn your points!",
       scheduled,
-      NotificationDetails(
+      const NotificationDetails(
         android: AndroidNotificationDetails(
           'habit_daily',
           'Daily Reminder',
           channelDescription: 'Daily habit check-in reminder',
           importance: Importance.high,
           priority: Priority.high,
-          styleInformation: const BigTextStyleInformation(
+          styleInformation: BigTextStyleInformation(
             "Don't forget to complete today's habits and earn your points!",
           ),
         ),
-        iOS: const DarwinNotificationDetails(
+        iOS: DarwinNotificationDetails(
           presentAlert: true,
           presentSound: true,
           presentBadge: true,

@@ -114,20 +114,20 @@ class TodayPageSkeleton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header row
-            Row(
+            const Row(
               children: [
-                const SkeletonBox(width: 40, height: 40, borderRadius: 12),
-                const SizedBox(width: 12),
+                SkeletonBox(width: 40, height: 40, borderRadius: 12),
+                SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SkeletonBox(width: 100, height: 12),
                     SizedBox(height: 6),
                     SkeletonBox(width: 160, height: 16),
                   ],
                 ),
-                const Spacer(),
-                const SkeletonBox(width: 40, height: 40, borderRadius: 12),
+                Spacer(),
+                SkeletonBox(width: 40, height: 40, borderRadius: 12),
               ],
             ),
             const SizedBox(height: 24),
@@ -138,9 +138,9 @@ class TodayPageSkeleton extends StatelessWidget {
             const SkeletonBox(width: double.infinity, height: 110, borderRadius: 20),
             const SizedBox(height: 28),
             // Section header
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 SkeletonBox(width: 120, height: 18),
                 SkeletonBox(width: 55, height: 14),
               ],
@@ -212,9 +212,9 @@ class HabitDetailSkeleton extends StatelessWidget {
                 color: AppColors.primaryPeach,
               ),
               padding: const EdgeInsets.all(20),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Row(children: [
                     SkeletonBox(width: 44, height: 44, borderRadius: 12),
                     SizedBox(width: 12),
@@ -229,9 +229,9 @@ class HabitDetailSkeleton extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             // Streak header
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 SkeletonBox(width: 120, height: 18),
                 SkeletonBox(width: 80, height: 26, borderRadius: 10),
               ],
@@ -241,8 +241,8 @@ class HabitDetailSkeleton extends StatelessWidget {
             const SkeletonBox(width: double.infinity, height: 90, borderRadius: 20),
             const SizedBox(height: 28),
             // Stats row
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Expanded(child: SkeletonBox(height: 90, borderRadius: 16)),
                 SizedBox(width: 12),
                 Expanded(child: SkeletonBox(height: 90, borderRadius: 16)),

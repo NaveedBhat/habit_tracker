@@ -62,7 +62,7 @@ class PageAllHabits extends StatelessWidget {
         backgroundColor: AppColors.bg,
         body: Stack(
           children: [
-            Positioned(
+            const Positioned(
               top: 0,
               right: 0,
               child: BlobDecoration(size: 240, color: AppColors.lavender),
@@ -135,15 +135,15 @@ class PageAllHabits extends StatelessWidget {
                   ),
 
                   // Swipe hint
-                  Padding(
+                  const Padding(
                     padding:
-                        const EdgeInsets.fromLTRB(20, 10, 20, 2),
+                        EdgeInsets.fromLTRB(20, 10, 20, 2),
                     child: Row(
                       children: [
-                        const Icon(Icons.swipe_left_rounded,
+                        Icon(Icons.swipe_left_rounded,
                             size: 14, color: AppColors.t3),
-                        const SizedBox(width: 4),
-                        const Text(
+                        SizedBox(width: 4),
+                        Text(
                           'Swipe left to delete',
                           style:
                               TextStyle(color: AppColors.t3, fontSize: 11),

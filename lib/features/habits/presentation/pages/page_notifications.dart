@@ -121,7 +121,7 @@ class _PageNotificationsState extends State<PageNotifications>
       body: Stack(
         children: [
           // Decorative blob
-          Positioned(
+          const Positioned(
             top: -60,
             right: -50,
             child: BlobDecoration(size: 260, color: AppColors.lavender),
@@ -184,7 +184,7 @@ class _PageNotificationsState extends State<PageNotifications>
                                 const SizedBox(height: 28),
 
                                 // ── Section: Daily reminder ─────────────
-                                _SectionLabel('Daily Reminder'),
+                                const _SectionLabel('Daily Reminder'),
                                 const SizedBox(height: 12),
                                 _MainToggleCard(
                                   enabled: _enabled,
@@ -219,33 +219,33 @@ class _PageNotificationsState extends State<PageNotifications>
                                 const SizedBox(height: 28),
 
                                 // ── Section: How it works ───────────────
-                                _SectionLabel('How It Works'),
+                                const _SectionLabel('How It Works'),
                                 const SizedBox(height: 12),
                                 _InfoCard(),
                                 const SizedBox(height: 28),
 
                                 // ── Tips ────────────────────────────────
-                                _SectionLabel('Tips'),
+                                const _SectionLabel('Tips'),
                                 const SizedBox(height: 12),
-                                _TipCard(
+                                const _TipCard(
                                   icon: Icons.wb_sunny_rounded,
                                   color: AppColors.amber,
-                                  bg: const Color(0xFFFFF3E0),
+                                  bg: Color(0xFFFFF3E0),
                                   title: 'Morning kickstart',
                                   body:
                                       'Set your reminder early (7–9 AM) to build a winning morning routine.',
                                 ),
                                 const SizedBox(height: 10),
-                                _TipCard(
+                                const _TipCard(
                                   icon: Icons.nights_stay_rounded,
                                   color: AppColors.lavender,
-                                  bg: const Color(0xFFF3F0FF),
+                                  bg: Color(0xFFF3F0FF),
                                   title: 'Evening review',
                                   body:
                                       'Set a reminder in the evening (8–9 PM) to review and complete remaining habits.',
                                 ),
                                 const SizedBox(height: 10),
-                                _TipCard(
+                                const _TipCard(
                                   icon: Icons.local_fire_department_rounded,
                                   color: AppColors.primary,
                                   bg: AppColors.primaryPeach,
@@ -460,7 +460,8 @@ class _MainToggleCard extends StatelessWidget {
           Switch.adaptive(
             value: enabled,
             onChanged: onChanged,
-            activeColor: AppColors.primary,
+            activeThumbColor: Colors.white,
+            activeTrackColor: AppColors.primary,
           ),
         ],
       ),

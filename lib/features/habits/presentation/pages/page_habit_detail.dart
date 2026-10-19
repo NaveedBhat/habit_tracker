@@ -28,7 +28,7 @@ class PageHabitDetail extends StatelessWidget {
         body: Stack(
           children: [
             // Decorative top-right blob
-            Positioned(
+            const Positioned(
               top: -60,
               right: -50,
               child: BlobDecoration(
@@ -275,8 +275,8 @@ class _Content extends StatelessWidget {
                   : [AppColors.primary, const Color(0xFFFF8C5A)],
             ),
             borderRadius: BorderRadius.circular(24),
-            image: DecorationImage(
-              image: const AssetImage('assets/waves.png'),
+            image: const DecorationImage(
+              image: AssetImage('assets/waves.png'),
               fit: BoxFit.cover,
               opacity: 0.12,
             ),

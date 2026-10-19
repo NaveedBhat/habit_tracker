@@ -45,7 +45,7 @@ class PageToday extends StatelessWidget {
         body: Stack(
           children: [
             // ── Decorative top-right blob ─────────────────────────────
-            Positioned(
+            const Positioned(
               top: -60,
               right: -50,
               child: BlobDecoration(
@@ -209,9 +209,9 @@ class PageToday extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Today's Habits",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.t1,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w700,
@@ -499,8 +499,8 @@ class _ProgressCard extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(22),
-        image: DecorationImage(
-          image: const AssetImage('assets/waves.png'),
+        image: const DecorationImage(
+          image: AssetImage('assets/waves.png'),
           fit: BoxFit.cover,
           opacity: 0.13,
         ),
@@ -592,48 +592,6 @@ class _ProgressCard extends StatelessWidget {
   }
 }
 
-class _StatBadge extends StatelessWidget {
-  const _StatBadge({
-    required this.label,
-    required this.value,
-    required this.color,
-    required this.bg,
-  });
-  final String label;
-  final String value;
-  final Color color;
-  final Color bg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Text(
-            value,
-            style: TextStyle(
-              color: color,
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              color: color.withValues(alpha: 0.7),
-              fontSize: 11,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 // ─── Habit card ────────────────────────────────────────────────────────────────
 
@@ -789,7 +747,7 @@ class _HabitCard extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.access_time_rounded,
+                      const Icon(Icons.access_time_rounded,
                           size: 11, color: AppColors.t2),
                       const SizedBox(width: 3),
                       Text(
