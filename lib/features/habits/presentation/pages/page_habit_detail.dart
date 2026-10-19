@@ -5,6 +5,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/habit_icons.dart';
 import '../../../../core/utils/view_status.dart';
 import '../../../../core/widgets/blob_decoration.dart';
+import '../../../../core/widgets/shimmer_skeleton.dart';
 import '../../domain/entities/entity_habit_detail.dart';
 import '../../domain/entities/entity_streak_day.dart';
 import '../cubit/cubit_habit_detail.dart';
@@ -105,12 +106,7 @@ class PageHabitDetail extends StatelessWidget {
                         switch (state.status) {
                           case ViewStatus.initial:
                           case ViewStatus.loading:
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2.5,
-                                color: AppColors.primary,
-                              ),
-                            );
+                            return const HabitDetailSkeleton();
                           case ViewStatus.error:
                             return Center(
                               child: Padding(

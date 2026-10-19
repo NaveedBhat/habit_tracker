@@ -6,6 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/habit_icons.dart';
 import '../../../../core/utils/view_status.dart';
 import '../../../../core/widgets/blob_decoration.dart';
+import '../../../../core/widgets/shimmer_skeleton.dart';
 import '../../domain/entities/entity_habit_status.dart';
 import '../../domain/entities/entity_today_summary.dart';
 import '../cubit/cubit_today_habits.dart';
@@ -58,12 +59,7 @@ class PageToday extends StatelessWidget {
                   switch (state.status) {
                     case ViewStatus.initial:
                     case ViewStatus.loading:
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                          strokeWidth: 2.5,
-                        ),
-                      );
+                      return const TodayPageSkeleton();
                     case ViewStatus.error:
                       return _ErrorBody(
                         msg: state.errorMessage ?? 'Something went wrong',

@@ -6,6 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/habit_icons.dart';
 import '../../../../core/utils/view_status.dart';
 import '../../../../core/widgets/blob_decoration.dart';
+import '../../../../core/widgets/shimmer_skeleton.dart';
 import '../../domain/entities/entity_habit.dart';
 import '../cubit/cubit_all_habits.dart';
 import '../cubit/state_all_habits.dart';
@@ -158,12 +159,7 @@ class PageAllHabits extends StatelessWidget {
                         switch (state.status) {
                           case ViewStatus.initial:
                           case ViewStatus.loading:
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.primary,
-                                strokeWidth: 2.5,
-                              ),
-                            );
+                            return const AllHabitsPageSkeleton();
                           case ViewStatus.error:
                             return Center(
                               child: Column(
