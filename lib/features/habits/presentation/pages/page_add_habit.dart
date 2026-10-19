@@ -51,10 +51,10 @@ class _PageAddHabitState extends State<PageAddHabit> {
 
   // ── Professional toast helpers ─────────────────────────────────────────────
 
-  void _showSuccessToast(BuildContext context) {
+  void _showSuccessToast(BuildContext context, String habitName) {
     _showToast(
       context,
-      message: 'Habit added successfully! 🎉',
+      message: '"$habitName" added successfully! 🎉',
       icon: Icons.check_circle_rounded,
       bgColor: const Color(0xFF1E6B45),
       iconColor: const Color(0xFF4ADE80),
@@ -99,9 +99,9 @@ class _PageAddHabitState extends State<PageAddHabit> {
     return BlocConsumer<CubitAddHabit, StateAddHabit>(
       listener: (context, state) {
         if (state.status == ViewStatus.success) {
+          final name = _nameController.text.trim();
           context.pop();
-          // Show professional toast on the parent screen
-          _showSuccessToast(context);
+          _showSuccessToast(context, name);
         } else if (state.status == ViewStatus.error) {
           _showErrorToast(context, state.errorMessage ?? 'Failed to save');
         }
