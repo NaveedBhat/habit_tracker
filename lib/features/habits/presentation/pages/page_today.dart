@@ -756,7 +756,7 @@ class _HabitCard extends StatelessWidget {
                           size: 11, color: AppColors.t2),
                       const SizedBox(width: 3),
                       Text(
-                        _timeLabel(item.habit.points),
+                        '${item.habit.durationMinutes} min',
                         style: const TextStyle(
                           color: AppColors.t2,
                           fontSize: 11,
@@ -774,15 +774,6 @@ class _HabitCard extends StatelessWidget {
     );
   }
 
-  /// Derive a rough time label from points (e.g. 10pts → 5 min).
-  String _timeLabel(int points) {
-    if (points <= 5) return '2 min';
-    if (points <= 10) return '5 min';
-    if (points <= 15) return '10 min';
-    if (points <= 20) return '15 min';
-    if (points <= 30) return '20 min';
-    return '30 min';
-  }
 }
 
 // ─── FAB ─────────────────────────────────────────────────────────────────────

@@ -44,6 +44,7 @@ class ImplHabitRepository implements RepositoryHabit {
     required String description,
     required int points,
     required String iconName,
+    required int durationMinutes,
   }) =>
       _guard(() async {
         final model = await _dataSource.addHabit(
@@ -51,6 +52,7 @@ class ImplHabitRepository implements RepositoryHabit {
           description: description,
           points: points,
           iconName: iconName,
+          durationMinutes: durationMinutes,
         );
         return model.toEntity();
       });

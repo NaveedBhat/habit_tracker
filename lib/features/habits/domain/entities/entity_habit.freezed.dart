@@ -20,6 +20,7 @@ mixin _$EntityHabit {
   int get points;
   DateTime get createdAt;
   String get iconName;
+  int get durationMinutes;
 
   /// Create a copy of EntityHabit
   /// with the given fields replaced by the non-null parameter values.
@@ -41,16 +42,18 @@ mixin _$EntityHabit {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.iconName, iconName) ||
-                other.iconName == iconName));
+                other.iconName == iconName) &&
+            (identical(other.durationMinutes, durationMinutes) ||
+                other.durationMinutes == durationMinutes));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, description, points, createdAt, iconName);
+  int get hashCode => Object.hash(runtimeType, id, name, description, points,
+      createdAt, iconName, durationMinutes);
 
   @override
   String toString() {
-    return 'EntityHabit(id: $id, name: $name, description: $description, points: $points, createdAt: $createdAt, iconName: $iconName)';
+    return 'EntityHabit(id: $id, name: $name, description: $description, points: $points, createdAt: $createdAt, iconName: $iconName, durationMinutes: $durationMinutes)';
   }
 }
 
@@ -66,7 +69,8 @@ abstract mixin class $EntityHabitCopyWith<$Res> {
       String description,
       int points,
       DateTime createdAt,
-      String iconName});
+      String iconName,
+      int durationMinutes});
 }
 
 /// @nodoc
@@ -87,6 +91,7 @@ class _$EntityHabitCopyWithImpl<$Res> implements $EntityHabitCopyWith<$Res> {
     Object? points = null,
     Object? createdAt = null,
     Object? iconName = null,
+    Object? durationMinutes = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -113,6 +118,10 @@ class _$EntityHabitCopyWithImpl<$Res> implements $EntityHabitCopyWith<$Res> {
           ? _self.iconName
           : iconName // ignore: cast_nullable_to_non_nullable
               as String,
+      durationMinutes: null == durationMinutes
+          ? _self.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -211,7 +220,7 @@ extension EntityHabitPatterns on EntityHabit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String id, String name, String description, int points,
-            DateTime createdAt, String iconName)?
+            DateTime createdAt, String iconName, int durationMinutes)?
         $default, {
     required TResult orElse(),
   }) {
@@ -219,7 +228,7 @@ extension EntityHabitPatterns on EntityHabit {
     switch (_that) {
       case _EntityHabit() when $default != null:
         return $default(_that.id, _that.name, _that.description, _that.points,
-            _that.createdAt, _that.iconName);
+            _that.createdAt, _that.iconName, _that.durationMinutes);
       case _:
         return orElse();
     }
@@ -241,14 +250,14 @@ extension EntityHabitPatterns on EntityHabit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String id, String name, String description, int points,
-            DateTime createdAt, String iconName)
+            DateTime createdAt, String iconName, int durationMinutes)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _EntityHabit():
         return $default(_that.id, _that.name, _that.description, _that.points,
-            _that.createdAt, _that.iconName);
+            _that.createdAt, _that.iconName, _that.durationMinutes);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -269,14 +278,14 @@ extension EntityHabitPatterns on EntityHabit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String id, String name, String description, int points,
-            DateTime createdAt, String iconName)?
+            DateTime createdAt, String iconName, int durationMinutes)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _EntityHabit() when $default != null:
         return $default(_that.id, _that.name, _that.description, _that.points,
-            _that.createdAt, _that.iconName);
+            _that.createdAt, _that.iconName, _that.durationMinutes);
       case _:
         return null;
     }
@@ -292,7 +301,8 @@ class _EntityHabit implements EntityHabit {
       required this.description,
       required this.points,
       required this.createdAt,
-      this.iconName = ''});
+      this.iconName = '',
+      this.durationMinutes = 5});
 
   @override
   final String id;
@@ -307,6 +317,9 @@ class _EntityHabit implements EntityHabit {
   @override
   @JsonKey()
   final String iconName;
+  @override
+  @JsonKey()
+  final int durationMinutes;
 
   /// Create a copy of EntityHabit
   /// with the given fields replaced by the non-null parameter values.
@@ -329,16 +342,18 @@ class _EntityHabit implements EntityHabit {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.iconName, iconName) ||
-                other.iconName == iconName));
+                other.iconName == iconName) &&
+            (identical(other.durationMinutes, durationMinutes) ||
+                other.durationMinutes == durationMinutes));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, description, points, createdAt, iconName);
+  int get hashCode => Object.hash(runtimeType, id, name, description, points,
+      createdAt, iconName, durationMinutes);
 
   @override
   String toString() {
-    return 'EntityHabit(id: $id, name: $name, description: $description, points: $points, createdAt: $createdAt, iconName: $iconName)';
+    return 'EntityHabit(id: $id, name: $name, description: $description, points: $points, createdAt: $createdAt, iconName: $iconName, durationMinutes: $durationMinutes)';
   }
 }
 
@@ -356,7 +371,8 @@ abstract mixin class _$EntityHabitCopyWith<$Res>
       String description,
       int points,
       DateTime createdAt,
-      String iconName});
+      String iconName,
+      int durationMinutes});
 }
 
 /// @nodoc
@@ -377,6 +393,7 @@ class __$EntityHabitCopyWithImpl<$Res> implements _$EntityHabitCopyWith<$Res> {
     Object? points = null,
     Object? createdAt = null,
     Object? iconName = null,
+    Object? durationMinutes = null,
   }) {
     return _then(_EntityHabit(
       id: null == id
@@ -403,6 +420,10 @@ class __$EntityHabitCopyWithImpl<$Res> implements _$EntityHabitCopyWith<$Res> {
           ? _self.iconName
           : iconName // ignore: cast_nullable_to_non_nullable
               as String,
+      durationMinutes: null == durationMinutes
+          ? _self.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }

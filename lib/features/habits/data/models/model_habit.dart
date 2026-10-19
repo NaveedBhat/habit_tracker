@@ -10,6 +10,7 @@ class ModelHabit {
     required this.points,
     required this.createdAt,
     required this.iconName,
+    required this.durationMinutes,
   });
 
   final String id;
@@ -18,6 +19,7 @@ class ModelHabit {
   final int points;
   final DateTime createdAt;
   final String iconName;
+  final int durationMinutes;
 
   factory ModelHabit.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data() ?? <String, dynamic>{};
@@ -28,6 +30,7 @@ class ModelHabit {
       points: (data['points'] as num?)?.toInt() ?? 0,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       iconName: (data['iconName'] as String?) ?? '',
+      durationMinutes: (data['durationMinutes'] as num?)?.toInt() ?? 5,
     );
   }
 }
@@ -41,5 +44,6 @@ extension ModelHabitX on ModelHabit {
         points: points,
         createdAt: createdAt,
         iconName: iconName,
+        durationMinutes: durationMinutes,
       );
 }

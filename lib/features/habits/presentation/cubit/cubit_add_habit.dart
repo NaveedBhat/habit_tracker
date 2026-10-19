@@ -14,6 +14,7 @@ class CubitAddHabit extends Cubit<StateAddHabit> {
     required String description,
     required int points,
     required String iconName,
+    required int durationMinutes,
   }) async {
     emit(const StateAddHabit(status: ViewStatus.loading));
 
@@ -22,6 +23,7 @@ class CubitAddHabit extends Cubit<StateAddHabit> {
       description: description,
       points: points,
       iconName: iconName,
+      durationMinutes: durationMinutes,
     ));
 
     if (isClosed) return;

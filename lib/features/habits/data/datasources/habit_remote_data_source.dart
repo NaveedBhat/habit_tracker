@@ -36,12 +36,14 @@ class HabitRemoteDataSource {
     required String description,
     required int points,
     required String iconName,
+    required int durationMinutes,
   }) async {
     final ref = await _habits.add({
       'name': name,
       'description': description,
       'points': points,
       'iconName': iconName,
+      'durationMinutes': durationMinutes,
       'createdAt': FieldValue.serverTimestamp(),
     });
     final doc = await ref.get();

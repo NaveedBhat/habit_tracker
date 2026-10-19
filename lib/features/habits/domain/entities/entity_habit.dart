@@ -10,6 +10,7 @@ abstract class EntityHabit with _$EntityHabit {
     required String description,
     required int points,
     required DateTime createdAt,
-    @Default('') String iconName, // e.g. 'water', 'run', 'book' …
+    @Default('') String iconName,
+    @Default(5) int durationMinutes, // how long the habit takes, in minutes
   }) = _EntityHabit;
 }

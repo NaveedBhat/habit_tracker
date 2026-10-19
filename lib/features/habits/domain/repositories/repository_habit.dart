@@ -14,6 +14,7 @@ abstract class RepositoryHabit {
     required String description,
     required int points,
     required String iconName,
+    required int durationMinutes,
   });
 
   Future<Either<Failure, Unit>> deleteHabit(String habitId);

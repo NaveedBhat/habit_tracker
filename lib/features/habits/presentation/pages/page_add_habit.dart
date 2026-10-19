@@ -23,7 +23,12 @@ class _PageAddHabitState extends State<PageAddHabit> {
   final _descriptionController = TextEditingController();
   final _pointsController = TextEditingController(text: '10');
 
-  String _selectedIcon = ''; // empty = no icon (optional)
+  String _selectedIcon = '';
+  int _durationMinutes = 5; // user-selected duration
+
+  static const List<int> _durationOptions = [
+    2, 5, 10, 15, 20, 30, 45, 60
+  ];
 
   @override
   void dispose() {
@@ -40,6 +45,7 @@ class _PageAddHabitState extends State<PageAddHabit> {
           description: _descriptionController.text.trim(),
           points: int.tryParse(_pointsController.text.trim()) ?? 0,
           iconName: _selectedIcon,
+          durationMinutes: _durationMinutes,
         );
   }
 
@@ -257,6 +263,59 @@ class _PageAddHabitState extends State<PageAddHabit> {
                                 if (value > 1000) return 'Max 1000 points';
                                 return null;
                               },
+                            ),
+                            const SizedBox(height: 20),
+
+                            // ── Duration ──────────────────────────────────────
+                            const _FieldLabel('Duration (Minutes)'),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              height: 44,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _durationOptions.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(width: 8),
+                                itemBuilder: (_, i) {
+                                  final mins = _durationOptions[i];
+                                  final selected = mins == _durationMinutes;
+                                  return GestureDetector(
+                                    onTap: () => setState(
+                                        () => _durationMinutes = mins),
+                                    child: AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18, vertical: 10),
+                                      decoration: BoxDecoration(
+                                        color: selected
+                                            ? AppColors.primary
+                                            : AppColors.surface,
+                                        borderRadius:
+                                            BorderRadius.circular(22),
+                                        border: Border.all(
+                                          color: selected
+                                              ? AppColors.primary
+                                              : AppColors.border,
+                                          width: selected ? 0 : 1,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        '$mins min',
+                                        style: TextStyle(
+                                          color: selected
+                                              ? Colors.white
+                                              : AppColors.t2,
+                                          fontSize: 13,
+                                          fontWeight: selected
+                                              ? FontWeight.w700
+                                              : FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                             const SizedBox(height: 32),
 

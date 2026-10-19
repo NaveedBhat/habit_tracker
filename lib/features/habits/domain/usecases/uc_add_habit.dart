@@ -31,6 +31,7 @@ class UcAddHabit implements UseCase<EntityHabit, ParamsAddHabit> {
       description: description,
       points: params.points,
       iconName: params.iconName,
+      durationMinutes: params.durationMinutes,
     );
   }
 }
@@ -41,10 +42,12 @@ class ParamsAddHabit {
     required this.description,
     required this.points,
     required this.iconName,
+    required this.durationMinutes,
   });
 
   final String name;
   final String description;
   final int points;
   final String iconName;
+  final int durationMinutes;
 }
