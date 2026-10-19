@@ -434,9 +434,11 @@ class _ProgressCard extends StatelessWidget {
     final progress = summary.totalCount == 0
         ? 0.0
         : summary.completedCount / summary.totalCount;
+    final pct = (progress * 100).toInt();
+    final color = progress == 1.0 ? AppColors.done : AppColors.primary;
 
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(18),
@@ -448,82 +450,87 @@ class _ProgressCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: Row(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Completion Rate',
+          // ── Circular progress ──────────────────────────────────────────
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                CircularProgressIndicator(
+                  value: progress,
+                  strokeWidth: 7,
+                  backgroundColor: AppColors.border,
+                  valueColor: AlwaysStoppedAnimation(color),
+                  strokeCap: StrokeCap.round,
+                ),
+                Center(
+                  child: Text(
+                    '$pct%',
                     style: TextStyle(
-                      color: AppColors.t2,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    '${(progress * 100).toInt()}%',
-                    style: const TextStyle(
-                      color: AppColors.t1,
-                      fontSize: 28,
+                      color: color,
+                      fontSize: 18,
                       fontWeight: FontWeight.w800,
                       letterSpacing: -0.5,
                     ),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  _StatBadge(
-                    label: 'Done',
-                    value: '${summary.completedCount}',
-                    color: AppColors.done,
-                    bg: AppColors.successLight,
-                  ),
-                  const SizedBox(width: 8),
-                  _StatBadge(
-                    label: 'Total',
-                    value: '${summary.totalCount}',
-                    color: AppColors.primary,
-                    bg: AppColors.primaryPeach,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 8,
-              backgroundColor: AppColors.border,
-              valueColor: AlwaysStoppedAnimation(
-                progress == 1.0 ? AppColors.done : AppColors.primary,
-              ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${summary.completedCount} of ${summary.totalCount} completed',
-                style: const TextStyle(color: AppColors.t2, fontSize: 12),
-              ),
-              Text(
-                '${summary.earnedPoints} pts earned',
-                style: const TextStyle(
-                  color: AppColors.amber,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+          const SizedBox(width: 18),
+          // ── Stats ──────────────────────────────────────────────────────
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Completion Rate',
+                  style: TextStyle(
+                    color: AppColors.t2,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    _StatBadge(
+                      label: 'Done',
+                      value: '${summary.completedCount}',
+                      color: AppColors.done,
+                      bg: AppColors.successLight,
+                    ),
+                    const SizedBox(width: 8),
+                    _StatBadge(
+                      label: 'Total',
+                      value: '${summary.totalCount}',
+                      color: AppColors.primary,
+                      bg: AppColors.primaryPeach,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text(
+                      '${summary.completedCount} of ${summary.totalCount} completed',
+                      style: const TextStyle(color: AppColors.t2, fontSize: 12),
+                    ),
+                  ],
+                ),
+                Text(
+                  '${summary.earnedPoints} pts earned',
+                  style: const TextStyle(
+                    color: AppColors.amber,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -602,7 +609,7 @@ class _HabitCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(18),
@@ -616,13 +623,36 @@ class _HabitCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Icon box — shows icon if set, else first letter
+              // ── Left: circle done/undone toggle ────────────────────────
+              GestureDetector(
+                onTap: onToggle,
+                behavior: HitTestBehavior.opaque,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 220),
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: done ? AppColors.done : Colors.transparent,
+                    border: Border.all(
+                      color: done ? AppColors.done : AppColors.t3,
+                      width: 2,
+                    ),
+                  ),
+                  child: done
+                      ? const Icon(Icons.check_rounded,
+                          color: Colors.white, size: 15)
+                      : null,
+                ),
+              ),
+              const SizedBox(width: 12),
+              // ── Icon box ───────────────────────────────────────────────
               Container(
-                width: 50,
-                height: 50,
+                width: 46,
+                height: 46,
                 decoration: BoxDecoration(
                   color: done ? AppColors.successLight : bgColor,
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: item.habit.iconName.isEmpty
                     ? Center(
@@ -632,7 +662,7 @@ class _HabitCard extends StatelessWidget {
                               : '?',
                           style: TextStyle(
                             color: done ? AppColors.done : accentColor,
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -640,11 +670,11 @@ class _HabitCard extends StatelessWidget {
                     : Icon(
                         iconFromName(item.habit.iconName),
                         color: done ? AppColors.done : accentColor,
-                        size: 24,
+                        size: 22,
                       ),
               ),
-              const SizedBox(width: 14),
-              // Text
+              const SizedBox(width: 12),
+              // ── Name + description ─────────────────────────────────────
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -653,7 +683,7 @@ class _HabitCard extends StatelessWidget {
                       item.habit.name,
                       style: TextStyle(
                         color: done ? AppColors.t2 : AppColors.t1,
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                         decoration:
                             done ? TextDecoration.lineThrough : null,
@@ -673,54 +703,68 @@ class _HabitCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                    const SizedBox(height: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryPeach,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        '⭐ ${item.habit.points} pts',
-                        style: const TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
-              const SizedBox(width: 12),
-              // Toggle button
-              GestureDetector(
-                onTap: onToggle,
-                behavior: HitTestBehavior.opaque,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9),
-                    color: done ? AppColors.done : Colors.transparent,
-                    border: Border.all(
-                      color: done ? AppColors.done : AppColors.t3,
-                      width: 1.5,
+              const SizedBox(width: 10),
+              // ── Right: points + time ───────────────────────────────────
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Points badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 7, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: done
+                          ? AppColors.successLight
+                          : AppColors.primaryPeach,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      '⭐ ${item.habit.points} pts',
+                      style: TextStyle(
+                        color: done ? AppColors.done : AppColors.primary,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                  child: done
-                      ? const Icon(Icons.check_rounded,
-                          color: Colors.white, size: 18)
-                      : null,
-                ),
+                  const SizedBox(height: 5),
+                  // Time chip
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.access_time_rounded,
+                          size: 11, color: AppColors.t2),
+                      const SizedBox(width: 3),
+                      Text(
+                        _timeLabel(item.habit.points),
+                        style: const TextStyle(
+                          color: AppColors.t2,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  /// Derive a rough time label from points (e.g. 10pts → 5 min).
+  String _timeLabel(int points) {
+    if (points <= 5) return '2 min';
+    if (points <= 10) return '5 min';
+    if (points <= 15) return '10 min';
+    if (points <= 20) return '15 min';
+    if (points <= 30) return '20 min';
+    return '30 min';
   }
 }
 
