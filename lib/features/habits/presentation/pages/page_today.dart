@@ -483,7 +483,9 @@ class _ProgressCard extends StatelessWidget {
                 opacity: 0.12,
                 child: Image.asset(
                   'assets/waves.png',
-                  fit: BoxFit.fill,
+                  fit: BoxFit.fitWidth,
+                  alignment: Alignment.bottomCenter,
+                  width: double.infinity,
                 ),
               ),
             ),
