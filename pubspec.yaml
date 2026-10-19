@@ -25,9 +25,19 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   build_runner: ^2.4.15
   freezed: ^3.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/daily-tracker.png"
+  min_sdk_android: 21
+  web:
+    generate: false
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
+    - assets/daily-tracker.png
